@@ -1,8 +1,8 @@
 name: SonarQube Analysis
 
 on:
-workflow_dispatch:
-push:
+  workflow_dispatch:
+  push:
     branches:
       - main
 
@@ -18,15 +18,18 @@ jobs:
       with:
         distribution: 'temurin'
         java-version: '17'
+        
     - name: Build with Maven
       run: mvn clean install
+
     - name: Run SonarQube analysis
+      run: mvn sonar:sonar
       env:
         SONAR_TOKEN: sqp_c917e435e65aae05304e8a5cddec8cae361fcc0f
         SONAR_HOST_URL: http://3.88.181.110:9000
 
     - name: Upload coverage report to SonarQube
       uses: sonarcloud/sonarcloud-github-action@v1
-        with:
-          sonar-token: sqp_c917e435e65aae05304e8a5cddec8cae361fcc0f
-          sonar-host-url: http://3.88.181.110:9000
+      with:
+        sonar-token: sqp_c917e435e65aae05304e8a5cddec8cae361fcc0f
+        sonar-host-url: http://3.88.181.110:9000
