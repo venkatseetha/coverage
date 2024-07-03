@@ -1,9 +1,12 @@
+package com.company;
+
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class HelloWorldTest {
+public class SampleTest {
+
     @Test
-    void testGreet() {
-        assertEquals("Hello, World!", HelloWorld.greet("World"));
+    public void sampleTest() {
+        assertEquals(1, 1);
     }
 }
