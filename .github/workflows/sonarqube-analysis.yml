@@ -32,4 +32,4 @@ jobs:
     - name: SonarQube Scan
       env:
         SONAR_TOKEN: sqp_c917e435e65aae05304e8a5cddec8cae361fcc0f
-      run: mvn sonar:sonar -Dsonar.projectKey=my_project -Dsonar.host.url=http://3.88.181.110:9000 -Dsonar.login=squ_01308039ba8b587bef183aa0978f35b013ab5cb2
+      run: mvn sonar:sonar -Dsonar.projectKey=my_project -Dsonar.host.url=http://3.88.181.110:9000 -Dsonar.login=sqp_c917e435e65aae05304e8a5cddec8cae361fcc0f
