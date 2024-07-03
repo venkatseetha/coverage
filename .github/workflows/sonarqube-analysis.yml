@@ -1,14 +1,18 @@
-name: SonarQube Analysis
+name: Build and Analyze
 
 on:
   workflow_dispatch:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  sonarqube-analysis:
+  build:
     runs-on: ubuntu-latest
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -18,18 +22,14 @@ jobs:
       with:
         distribution: 'temurin'
         java-version: '17'
-        
+
     - name: Build with Maven
       run: mvn clean install
 
-    - name: Run SonarQube analysis
-      run: mvn sonar:sonar
+    - name: Run unit tests and generate coverage report
+      run: mvn test jacoco:report
+
+    - name: SonarQube Scan
       env:
         SONAR_TOKEN: sqp_c917e435e65aae05304e8a5cddec8cae361fcc0f
-        SONAR_HOST_URL: http://3.88.181.110:9000
-
-    - name: Upload coverage report to SonarQube
-      uses: sonarcloud/sonarcloud-github-action@v1
-      with:
-        sonar-token: sqp_c917e435e65aae05304e8a5cddec8cae361fcc0f
-        sonar-host-url: http://3.88.181.110:9000
+      run: mvn sonar:sonar -Dsonar.projectKey=my_project -Dsonar.host.url=http://3.88.181.110:9000 -Dsonar.login=squ_01308039ba8b587bef183aa0978f35b013ab5cb2
